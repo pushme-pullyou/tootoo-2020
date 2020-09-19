@@ -33,9 +33,6 @@
 
 		defaultFile = "README.md";
 
-		//location.hash = "../assets/markdown-help.md"; // test
-		//location.hash = "../assets/style.css"
-
 		init();
 
 		function init() {
@@ -73,7 +70,10 @@
 				};
 				xhr.send( null );
 
+				console.log( "", 23 );
+
 				return;
+
 			}
 
 			if ( [ "gif", "jpg", "png", "svg" ].includes( extension ) ) {
@@ -83,6 +83,8 @@
 				return;
 
 			}
+
+			divContent.innerHTML = `<iframe src="${ url }" height=${ window.innerHeight } width=100% ></iframe>`;
 
 		}
 
