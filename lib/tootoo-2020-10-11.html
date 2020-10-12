@@ -7,9 +7,9 @@
 	<meta name="description"
 		content="TooToo 2020 uses the GitHub API to provide access to all the current files hosted with GitHub Pages.">
 	<meta name="keywords" content="JavaScript,GitHub,FOSS">
-	<meta name="version" content="2020-09-21">
+	<meta name="version" content="2020-10-11">
 
-	<link rel="stylesheet" href="../lib/style/style-2020-09-17.css">
+	<link rel="stylesheet" href="../lib/style/style-2020-10-06.css">
 
 	<style>
 		/* :root {
@@ -52,7 +52,8 @@
 						<img class=infoImg src="../lib/icons/noun_Information_585560.svg">
 						<span id="divDescription" class="infoTooltip gmd-5">
 
-						</span></span>
+						</span>
+					</span>
 
 				</h2>
 
@@ -107,7 +108,7 @@
 			<footer>
 
 				<div title="go to top of menu" style=text-align:center;>
-					<a class=aDingbat href=javascript:navMenu.scrollTo(0,0);>
+					<a class=aDingbat href=javascript:navMenuSum.scrollIntoView();>
 						❦
 					</a>
 				</div>
@@ -131,7 +132,7 @@
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="../lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-09-18.js"></script>
+	<script src="../lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-10-11.js"></script>
 
 	<script src="../lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
 	<script src="../lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
@@ -162,9 +163,11 @@
 
 			// if running on server, keeps address bar pointed to latest dev
 
-			if ( !location.hash && location.protocol === "https:" ) {
+			//if ( !location.hash && location.protocol === "https:" ) {
 
-				window.history.pushState( "", "", "../" );
+			if ( location.protocol === "https:" ) {
+
+				window.history.pushState( "", "", "../" + location.hash );
 
 				GRV.ignoreFolders = [ "archive", "drafts", "images", "js", "lib", "src", "templates" ];
 
