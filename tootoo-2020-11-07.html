@@ -6,18 +6,21 @@
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
 	<meta name="description"
 		content="TooToo 2020 uses the GitHub API to provide access to all the current files hosted with GitHub Pages.">
-	<meta name="keywords" content="JavaScript,GitHub,FOSS">
-	<meta name="version" content="2020-10-11">
+	<meta name="keywords" content="JavaScript,MarkdownGitHub,FOSS">
+	<meta name="version" content="2020-11-07">
 
-	<link rel="stylesheet" href="./lib/style/style-2020-10-06.css">
+	<!-- Copyright 2020 Theo Armour. MIT license -->
+	<link rel="stylesheet" href="./lib/style/style-2020-11-07.css">
+
+	<!-- https://github.com/showdownjs/showdown -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+
 
 	<style>
-		/* :root {
+		:root {
 			--main-hue: 0;
-			/* 0 to 360 0=red 120=green 240=blue
+			/* 0 to 360 0=red 120=green 240=blue */
 		}
-
-		*/
 	</style>
 
 	<title></title>
@@ -25,8 +28,6 @@
 </head>
 
 <body>
-
-
 
 	<details id=navMenuDet>
 
@@ -38,8 +39,8 @@
 
 				<h2>
 
-					<a id=aGithub href="https://github.com/pushme-pullyou/tootoo-2020/tree/master/lib"
-						target="_top" title="Source code on GitHub">
+					<a id=aGithub href="https://github.com/pushme-pullyou/tootoo-2020/tree/master/lib" target="_top"
+						title="Source code on GitHub">
 						<img src="./lib/icons/octicon.svg">
 					</a>
 
@@ -84,10 +85,10 @@
 				<summary class="summary-primary gmd-1" title="View selected items">repository files
 
 					<span class="info">
-					<img class=infoImg src="./lib/icons/noun_Information_585560.svg">
-					<span id="spnGRV" class="infoTooltip gmd-5">
-						test <button onclick=GRV.test() >view all files in this repository</button>
-					</span></span>
+						<img class=infoImg src="./lib/icons/noun_Information_585560.svg">
+						<span id="spnGRV" class="infoTooltip gmd-5">
+							test <button onclick=GRV.test()>view all files in this repository</button>
+						</span></span>
 				</summary>
 
 				<div class=divNavResize>
@@ -121,17 +122,13 @@
 
 	<main>
 
-		<div id="divContentMain">
-
-			<iframe id=ifr style="border-width: 0 1px 1px 0;height:100%;width:100%;"></iframe>
-
-		</div>
+		<div id="divContentMain"></div>
 
 	</main>
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-10-11.js"></script>
+	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-07.js"></script>
 
 	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
 	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
@@ -148,9 +145,6 @@
 
 			divPopUp.hidden = true;
 
-			window.addEventListener( "hashchange", onHashChange, false );
-
-			onHashChange();
 
 			if ( window.innerWidth < 640 || window.innerHeight < 500 ) {
 
@@ -188,13 +182,58 @@
 
 			GRV.init();
 
+			const defaultFile = "README.md";
+
+			if ( !location.hash ) { location.hash = defaultFile; }
+
+			window.addEventListener( "hashchange", onHashChange, false );
+
+
+			onHashChange();
 		}
 
 
 
 		function onHashChange() {
 
-			ifr.src = "./readme.html" + location.hash;
+
+
+			const url = GRV.urlViewer + location.hash.slice( 1 );
+			const title = url.split( "/" ).pop();
+			const extension = title.toLowerCase().split( '.' ).pop();
+
+			document.title = title;
+
+
+			if ( extension === "md" ) {
+
+				showdown.setFlavor( "github" );
+
+				const options = { excludeTrailingPunctuationFromURLs: true, ghMention: true, parseImgDimensions: true, simplifiedAutoLink: true, simpleLineBreaks: true, emoji: true, openLinksInNewWindow: true };
+
+				const xhr = new XMLHttpRequest();
+				xhr.open( "get", url, true );
+				xhr.onload = () => {
+					const txt = xhr.responseText.replace( /\<!--@@@/, "" ).replace( /\@@@-->/, "" );
+					divContentMain.innerHTML = new showdown.Converter( options ).makeHtml( txt );
+					window.scrollTo( 0, 0 );
+				};
+				xhr.send( null );
+
+				return;
+
+			}
+
+			if ( [ "gif", "jpg", "png", "svg" ].includes( extension ) ) {
+
+				divContentMain.innerHTML = `<img src="${ url }" style=max-width:100% >`;
+
+				return;
+
+			}
+
+			divContentMain.innerHTML = `<iframe src="${ url }" height=${ window.innerHeight } width=100% ></iframe>`;
+
 
 		}
 
