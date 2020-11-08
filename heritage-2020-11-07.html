@@ -11,8 +11,8 @@
 	<!-- Copyright 2020 Theo Armour. MIT license -->
 	<link rel="stylesheet" href="./lib/style/style-2020-11-07.css">
 
-		<!-- https://github.com/showdownjs/showdown -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+	<!-- https://github.com/showdownjs/showdown -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
 
 
 	<style>
@@ -128,11 +128,7 @@
 
 	<main>
 
-		<div id="divContentMain">
-
-			<iframe id=ifr style="border-width: 0 1px 1px 0;height:100%;width:100%;"></iframe>
-
-		</div>
+		<div id="divContentMain"></div>
 
 	</main>
 
@@ -156,8 +152,6 @@
 			divPopUp.hidden = true;
 
 			window.addEventListener( "hashchange", onHashChange, false );
-
-
 
 			if ( window.innerWidth < 640 || window.innerHeight < 500 ) {
 
@@ -206,9 +200,6 @@
 
 
 		function onHashChange() {
-
-			//ifr.src = "./readme-grv.html" + location.hash;
-
 
 			const url = GRV.urlViewer + location.hash.slice( 1 );
 			const title = url.split( "/" ).pop();
