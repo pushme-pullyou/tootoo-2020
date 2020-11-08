@@ -137,11 +137,11 @@
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="../lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-10-11.js"></script>
+	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-10-11.js"></script>
 
-	<script src="../lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
-	<script src="../lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
-	<script src="../lib/fo-file-open/fr-file-reader-2020-07-06.js"></script>
+	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
+	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
+	<script src="./lib/fo-file-open/fr-file-reader-2020-07-06.js"></script>
 
 	<script>
 
@@ -172,7 +172,7 @@
 
 			if ( location.protocol === "https:" ) {
 
-				window.history.pushState( "", "", "../" + location.hash );
+				window.history.pushState( "", "", "./" + location.hash );
 
 				GRV.ignoreFolders = [ "archive", "drafts", "images", "js", "lib", "src", "templates" ];
 
@@ -200,7 +200,7 @@
 
 		function onHashChange() {
 
-			ifr.src = "../readme.html" + location.hash;
+			ifr.src = "./readme.html" + location.hash;
 
 		}
 
