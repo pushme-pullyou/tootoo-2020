@@ -4,11 +4,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
-	<meta name="description" content="Web site designed and built by Theo Armour, resident at the Heritage">
+	<meta name="description"
+		content="TooToo 2020 uses the GitHub API to provide access to all the current files hosted with GitHub Pages.">
 	<meta name="keywords" content="JavaScript,GitHub,FOSS">
-	<meta name="version" content="2020-10-11">
+	<meta name="version" content="2020-09-21">
 
-	<link rel="stylesheet" href="./lib/style/style-2020-10-06.css">
+	<link rel="stylesheet" href="../lib/style/style-2020-09-17.css">
 
 	<style>
 		/* :root {
@@ -38,21 +39,20 @@
 
 				<h2>
 
-					<a id=aGithub href="https://github.com/heritagesf/heritagesf.github.io/" target="_top"
-						title="Source code on GitHub">
-						<img src="./lib/icons/octicon.svg">
+					<a id=aGithub href="https://github.com/pushme-pullyou/tootoo-2020/tree/master/lib"
+						target="_top" title="Source code on GitHub">
+						<img src="../lib/icons/octicon.svg">
 					</a>
 
 					<a id=aTitle href="" title="Click to reload this page">
-						Residents @ Heritage on the Marina
+						TooToo 2020
 					</a>
 
 					<span class="info">
-						<img class=infoImg src="./lib/icons/noun_Information_585560.svg">
+						<img class=infoImg src="../lib/icons/noun_Information_585560.svg">
 						<span id="divDescription" class="infoTooltip gmd-5">
-							abc
-						</span>
-					</span>
+
+						</span></span>
 
 				</h2>
 
@@ -60,7 +60,7 @@
 
 			<div id=divNavLog></div>
 
-			<!-- <details id=detFile>
+			<details id=detFile>
 
 				<summary class="summary-primary gmd-1" title="Open files on your device: ">file menu</summary>
 
@@ -79,42 +79,36 @@
 			</details>
 
 			<details open>
-				<!-- 'open' triggers a run on load
+				<!-- 'open' triggers a run on load -->
 
 				<summary class="summary-primary gmd-1" title="View selected items">repository files
 
+					<span class="info">
+					<img class=infoImg src="../lib/icons/noun_Information_585560.svg">
+					<span id="spnGRV" class="infoTooltip gmd-5">
+						test <button onclick=GRV.test() >view all files in this repository</button>
+					</span></span>
 				</summary>
 
+				<div class=divNavResize>
+
+					<p>Files you can load, view and experiment with:</p>
+
+					<div id=GRVdivGitHubRepoTreeView></div>
+
+					<br>
+
+				</div>
+
 			</details>
-
-				-->
-
-
-			<!-- <span class="info">
-				<img class=infoImg src="../lib/icons/noun_Information_585560.svg">
-				<span id="spnGRV" class="infoTooltip gmd-5">
-					test <button onclick=GRV.test()>view all files in this repository</button>
-				</span>
-			</span> -->
-
-			<div class=divNavResize>
-
-				<!-- <p>Files you can load, view and experiment with:</p> -->
-
-				<div id=GRVdivGitHubRepoTreeView></div>
-
-				<br>
-
-			</div>
-
 
 			<hr>
 
 			<footer>
 
 				<div title="go to top of menu" style=text-align:center;>
-					<a class=aDingbat href=javascript:navMenuSum.scrollIntoView();>
-						❧
+					<a class=aDingbat href=javascript:navMenu.scrollTo(0,0);>
+						❦
 					</a>
 				</div>
 
@@ -137,11 +131,11 @@
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-10-11.js"></script>
+	<script src="../lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-09-18.js"></script>
 
-	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
-	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
-	<script src="./lib/fo-file-open/fr-file-reader-2020-07-06.js"></script>
+	<script src="../lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
+	<script src="../lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
+	<script src="../lib/fo-file-open/fr-file-reader-2020-07-06.js"></script>
 
 	<script>
 
@@ -168,11 +162,9 @@
 
 			// if running on server, keeps address bar pointed to latest dev
 
-			//if ( !location.hash && location.protocol === "https:" ) {
+			if ( !location.hash && location.protocol === "https:" ) {
 
-			if ( location.protocol === "https:" ) {
-
-				window.history.pushState( "", "", "./" + location.hash );
+				window.history.pushState( "", "", "../" );
 
 				GRV.ignoreFolders = [ "archive", "drafts", "images", "js", "lib", "src", "templates" ];
 
@@ -183,9 +175,9 @@
 			}
 
 
-			GRV.urlApi = "https://api.github.com/repos/heritagesf/heritagesf.github.io/git/trees/master?recursive=1";
-			GRV.urlSource = "https://github.com/heritagesf/heritagesf.github.io/";
-			GRV.urlViewer = "https://heritagesf.github.io/";
+			GRV.urlApi = "https://api.github.com/repos/pushme-pullyou/tootoo-2020/git/trees/master?recursive=1";
+			GRV.urlSource = "https://github.com/pushme-pullyou/tootoo-2020/";
+			GRV.urlViewer = "https://pushme-pullyou.github.io/tootoo-2020/";
 
 
 			GRV.iconOctoCat = `<img width=14 src="${ GRV.urlViewer }lib/icons/octicon.svg">`;
@@ -200,7 +192,7 @@
 
 		function onHashChange() {
 
-			ifr.src = "./readme.html" + location.hash;
+			ifr.src = "../readme.html" + location.hash;
 
 		}
 
