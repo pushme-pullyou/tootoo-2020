@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
 	<meta name="description" content="Web site designed and built by Theo Armour, resident at the Heritage">
-	<meta name="keywords" content="JavaScript,GitHub,FOSS">
-	<meta name="version" content="2020-11-07">
+	<meta name="keywords" content="JavaScript,MarkdownGitHub,FOSS">
+	<meta name="version" content="2020-11-11">
 
 	<!-- Copyright 2020 Theo Armour. MIT license -->
 	<link rel="stylesheet" href="./lib/style/style-2020-11-07.css">
@@ -17,7 +17,7 @@
 
 	<style>
 		:root {
-			--main-hue: 240;
+			--main-hue: 120;
 			/* 0 to 360 0=red 120=green 240=blue */
 		}
 	</style>
@@ -27,7 +27,6 @@
 </head>
 
 <body>
-
 
 	<details id=navMenuDet>
 
@@ -61,7 +60,7 @@
 
 			<div id=divNavLog></div>
 
-			<!-- 
+			<!--
 			<details id=detFile>
 
 				<summary class="summary-primary gmd-1" title="Open files on your device: ">file menu</summary>
@@ -91,13 +90,13 @@
 			-->
 
 
-			<!-- 
+			<!--
 			<span class="info">
 				<img class=infoImg src="../lib/icons/noun_Information_585560.svg">
 				<span id="spnGRV" class="infoTooltip gmd-5">
 					test <button onclick=GRV.test()>view all files in this repository</button>
 				</span>
-			</span> 
+			</span>
 			-->
 
 			<div class=divNavResize>
@@ -109,7 +108,6 @@
 				<br>
 
 			</div>
-
 
 			<hr>
 
@@ -136,7 +134,7 @@
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-07.js"></script>
+	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-10.js"></script>
 
 	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
 	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
@@ -146,15 +144,12 @@
 
 		divDescription.innerHTML = document.head.querySelector( "[ name=description ]" ).content;
 
-	const defaultFile = "home-page.md";
 
 		init();
 
 		function init() {
 
 			divPopUp.hidden = true;
-
-			window.addEventListener( "hashchange", onHashChange, false );
 
 			if ( window.innerWidth < 640 || window.innerHeight < 500 ) {
 
@@ -192,24 +187,28 @@
 
 			GRV.init();
 
+			const defaultFile = "README.md";
 
+			if ( !location.hash ) { location.hash = defaultFile; }
 
-			//if ( !location.hash ) { location.hash = defaultFile; }
+			window.addEventListener( "hashchange", onHashChange, false );
+
 
 			onHashChange();
-
 		}
 
 
 
 		function onHashChange() {
 
-			const fileName = location.hash ? location.hash.slice( 1 ) : defaultFile;
-			const title = fileName.split( "/" ).pop();
+
+
+			const url = GRV.urlViewer + location.hash.slice( 1 );
+			const title = url.split( "/" ).pop();
 			const extension = title.toLowerCase().split( '.' ).pop();
-			const url = GRV.urlViewer + fileName
 
 			document.title = title;
+
 
 			if ( extension === "md" ) {
 
@@ -239,6 +238,7 @@
 			}
 
 			divContentMain.innerHTML = `<iframe src="${ url }" height=${ window.innerHeight } width=100% ></iframe>`;
+
 
 		}
 
