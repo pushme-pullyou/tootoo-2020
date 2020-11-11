@@ -134,12 +134,13 @@
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-09.js"></script>
+	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-10.js"></script>
 
 	<script>
 
 		divDescription.innerHTML = document.head.querySelector( "[ name=description ]" ).content;
 
+		GRV.getFiles = GRV.getFilesSimple;
 
 		init();
 
