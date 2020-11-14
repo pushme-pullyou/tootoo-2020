@@ -134,7 +134,7 @@
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-11.js"></script>
+	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-13.js"></script>
 
 	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
 	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
@@ -166,12 +166,21 @@
 
 				window.history.pushState( "", "", "./" + location.hash );
 
-				GRV.urlViewer = ""; //"https://evereverland.github.io/";
+				GRV.urlViewer = "";
+
 				GRV.ignoreFolders = [ "archive", "drafts", "images", "js", "lib", "src", "templates" ];
 
 			} else {
 
-				GRV.urlViewer = "../evereverland-github-io/";
+				if ( location.href.includes( "pushme" ) ) {
+
+					GRV.urlViewer = "https://evereverland.github.io/";
+
+				} else {
+
+					GRV.urlViewer = "";
+
+				}
 				GRV.ignoreFolders = [];
 
 			}
@@ -193,8 +202,8 @@
 
 			window.addEventListener( "hashchange", onHashChange, false );
 
-
 			onHashChange();
+
 		}
 
 
@@ -202,6 +211,7 @@
 		function onHashChange() {
 
 			const url = GRV.urlViewer + location.hash.slice( 1 );
+			console.log( "url", url );
 			const title = url.split( "/" ).pop();
 			const extension = title.toLowerCase().split( '.' ).pop();
 
@@ -236,7 +246,6 @@
 			}
 
 			divContentMain.innerHTML = `<iframe src="${ url }" height=${ window.innerHeight } width=100% ></iframe>`;
-
 
 		}
 
