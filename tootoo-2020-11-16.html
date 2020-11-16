@@ -128,7 +128,7 @@
 
 	<div id="divPopUp" class="gmd-2">Welcome! </div>
 
-	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-13.js"></script>
+	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-16.js"></script>
 
 	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
 	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
@@ -168,7 +168,7 @@
 
 				if ( location.href.includes( "pushme" ) ) {
 
-					GRV.urlViewer = ""; // "https://evereverland.github.io/";
+					GRV.urlViewer = ""; // "https://pushme-pullyou.github.io/";
 
 				} else {
 
@@ -181,7 +181,7 @@
 
 
 			GRV.urlApi = "https://api.github.com/repos/pushme-pullyou/tootoo-2020/git/trees/master?recursive=1";
-			
+
 			GRV.urlSource = "https://github.com/pushme-pullyou/tootoo-2020/";
 
 
@@ -207,10 +207,10 @@
 
 		function onHashChange() {
 
-			const url = GRV.urlViewer + location.hash.slice( 1 );
-			//console.log( "url", url );
-			const title = url.split( "/" ).pop();
+			const fileName = location.hash ? location.hash.slice( 1 ) : GRV.defaultFile;
+			const title = fileName.split( "/" ).pop();
 			const extension = title.toLowerCase().split( '.' ).pop();
+			const url = GRV.urlViewer + fileName
 
 			document.title = title;
 
@@ -236,7 +236,7 @@
 
 			if ( [ "gif", "jpg", "png", "svg" ].includes( extension ) ) {
 
-				divContentMain.innerHTML = `<img src="${ url }" style=max-width:100% >`;
+				divContentMain.innerHTML = `<a href=${ url } title="Open this image in a new window" target="_blank" ><img src="${ url }" style=max-width:100% ></a>`;
 
 				return;
 

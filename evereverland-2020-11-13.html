@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
 	<meta name="description" content="Web site designed and built by Theo Armour, resident at the Heritage">
-	<meta name="keywords" content="JavaScript,MarkdownGitHub,FOSS">
-	<meta name="version" content="2020-11-13">
+	<meta name="keywords" content="JavaScript,GitHub,FOSS">
+	<meta name="version" content="2020-11-16">
 
 	<!-- Copyright 2020 Theo Armour. MIT license -->
 	<link rel="stylesheet" href="./lib/style/style-2020-11-11.css">
@@ -27,6 +27,7 @@
 </head>
 
 <body>
+
 
 	<details id=navMenuDet>
 
@@ -136,10 +137,6 @@
 
 	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-11-13.js"></script>
 
-	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
-	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
-	<script src="./lib/fo-file-open/fr-file-reader-2020-07-06.js"></script>
-
 	<script>
 
 		divDescription.innerHTML = document.head.querySelector( "[ name=description ]" ).content +
@@ -155,7 +152,7 @@
 
 			} else {
 
-				navMenuDet.open = true
+				navMenuDet.open = true;
 
 			}
 
@@ -211,10 +208,10 @@
 
 		function onHashChange() {
 
-			const url = GRV.urlViewer + location.hash.slice( 1 );
-			//console.log( "url", url );
-			const title = url.split( "/" ).pop();
+			const fileName = location.hash ? location.hash.slice( 1 ) : GRV.defaultFile;
+			const title = fileName.split( "/" ).pop();
 			const extension = title.toLowerCase().split( '.' ).pop();
+			const url = GRV.urlViewer + fileName
 
 			document.title = title;
 
