@@ -114,6 +114,13 @@ GJS.onLoadGeoJson = function ( string ) {
 		scene.add( mesh );
 
 
+		const deaths = + tracts[ index ].properties.count;
+		const geometry2 = new THREE.BoxGeometry( 0.001, 0.001, 0.00004 * deaths );
+		const material2 = new THREE.MeshBasicMaterial( { color: 0x000000 });
+		const mesh2 = new THREE.Mesh( geometry2, material2 );
+		mesh2.position.copy( geo.boundingSphere.center );
+		mesh2.position.z -= 0.00002 * deaths;
+		scene.add( mesh2 );
 
 	} );
 
