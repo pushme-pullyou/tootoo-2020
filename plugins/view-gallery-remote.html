@@ -30,8 +30,8 @@
 
 		if ( window.top !== window.self ) {
 
-			parent.divSubMenu.innerHTML = '';
-			parent.ifrMenu.src = '';
+			//parent.divSubMenu.innerHTML = '';
+			//parent.ifrMenu.src = '';
 
 		}
 
@@ -76,7 +76,7 @@
 			src = source.toLowerCase();
 
 			if ( src.includes( '.thumb' ) || src.includes( '.highlight' ) || src.endsWith( '.dat' )  ||
-				src.endsWith( '.lock' ) || src.endsWith( '.avi' ) || src.endsWith( '.html' )) { continue; }
+				src.endsWith( '.md' ) || src.endsWith( '.avi' ) || src.endsWith( '.html' )) { continue; }
 
 			page +=
 

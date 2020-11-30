@@ -215,7 +215,6 @@
 
 			document.title = title;
 
-
 			if ( extension === "md" ) {
 
 				showdown.setFlavor( "github" );
@@ -237,7 +236,7 @@
 
 			if ( [ "gif", "jpg", "png", "svg" ].includes( extension ) ) {
 
-				divContentMain.innerHTML = `<img src="${ url }" style=max-width:100% >`;
+				divContentMain.innerHTML = `<a href=${ url } title="Open this image in a new window" target="_blank" ><img src="${ url }" style=max-width:100% ></a>`;
 
 				return;
 
