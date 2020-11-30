@@ -7,7 +7,7 @@
 <meta name=description
 	content="Real-time interactive 3D graphics in your browser using the WebGL and the Three.js JavaScript library">
 <meta name=keywords content="Three.js,WebGL,JavaScript,GitHub,FOSS,3D,STEM">
-<meta name=version content="2020-11-25">
+<meta name=version content="2020-11-29">
 
 
 <title></title>
@@ -46,7 +46,7 @@ input[ type=range ]::-webkit-slider-thumb { -webkit-appearance: none; background
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r122/examples/js/controls/OrbitControls.js"></script>
 
 
-<script src="gjs-geojson-sf-2020-11-28.js"></script>
+<script src="gjs-geojson-sf.js"></script>
 
 
 <nav id="navMenu" >
@@ -134,10 +134,10 @@ function init() {
 	//camera.position.set( -118, 28, 4 );
 	//controls.target.set( -118, 37, 0 );
 
-		const geometry = new THREE.BoxGeometry( 0.01, 0.01, 0.01 );
+	const geometry = new THREE.BoxGeometry( 0.01, 0.01, 0.01 );
 	const material = new THREE.MeshNormalMaterial();
 	const mesh = new THREE.Mesh( geometry, material );
-	scene.add( mesh );
+	//scene.add( mesh );
 
 }
 

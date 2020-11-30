@@ -22,7 +22,8 @@ GJS.initGeoJson = function () {
 	// https://data.sfgov.org/COVID-19/COVID-19-Cases-by-Geography-and-Date/d2ef-idww
 	// API > geoJson
 	//const urlGeoJson = "https://data.sfgov.org/resource/d2ef-idww.geojson";
-	const urlGeoJson = "c-19.geojson";
+	//const urlGeoJson = "../d2ef-idww.geojson";
+	const urlGeoJson = "../c-19-2.geojson";
 
 	//const urlGeoJson = "./gz_2010_us_050_00_20m.json";
 
@@ -45,81 +46,81 @@ GJS.initGeoJson = function () {
 
 
 GJS.onLoadGeoJson = function ( string ) {
-
 	console.log( "string", string );
-	const json = string
 
-	let geometries = json.features.filter( feature => feature.geometry ).map( feature => feature.geometry )
-	console.log( "geometries", geometries );
+	const json = string;
 
-	let points = geometries.flatMap( geometry => {
+	let features = json.features.filter( feature => feature.geometry ); //.map( feature => feature.geometry )
+	//console.log( "features", features );
 
-		if ( geometry && [ "MultiPolygon", "Polygon", "MultiLineString" ].includes( geometry.type ) ) {
+	let tracts = features.filter( feature => feature.properties.area_type === "Census Tract" );
+	console.log( "tracts", tracts );
 
-			return [ ... geometry.coordinates ][ 0 ];
+	let neighborhoods = features.filter( feature => feature.properties.area_type === "Analysis Neighborhood" );
+	//console.log( "neighborhoods", neighborhoods );
 
-		} else if ( geometry && geometry.type === "LineString" ) {
+	const geometries = tracts.map( tract => tract.geometry );
+	//console.log( "geometries", geometries );
 
-			return [ geometry.coordinates ];
+	// let points = geometries.map( geometry => {
 
-		} else {
+	// 	if ( [ "MultiPolygon", "Polygon", "MultiLineString" ].includes( geometry.type ) ) {
 
-			return [];
-		}
+	// 		return geometry.coordinates[ 0 ][ 0 ];
 
-	} );
-	console.log( "points", points );
+	// 	} else if ( geometry.type === "LineString" ) {
+
+	// 		return [ geometry.coordinates ];
+
+	// 	} else {
+
+	// 		return [];
+	// 	}
+
+	// } );
+
+	let points = geometries.map( geometry => geometry.coordinates[ 0 ][ 0 ] );
+	//console.log( "points", points );
 
 	//const vertices = points.map( pairs => pairs.flatMap( pair => GJS.latLonToXYZ( 50, pair[ 1 ], pair[ 0 ] ) ) );
 
-	const vertices = points.map( pairs => pairs.map( pair => new THREE.Vector3( pair[ 0 ]+ 122.44, pair[ 1 ] - 37.77, 0 )  ) );
-	console.log( "vertices", vertices );
-
-	const line = GJS.addLineSegments( vertices );
-
-	GJS.groupGeoJson.add( line );
-
-};
-
-
-
-GJS.onLoadGeoJsonCbsa = function ( string ) {
-
-	geoJson = string;
-
-	console.log( "geoJson", geoJson.records );
-
-	//let geometries = json.features.map( feature => feature.geometry );
-
-	let geometries = geoJson.records.map( record => record.fields.geo_shape );
-	console.log( "geometries", geometries );
-
-	let points = geometries.flatMap( geometry => {
-
-		if ( [ "MultiPolygon", "Polygon", "MultiLineString" ].includes( geometry.type ) ) {
-
-			return [ ... geometry.coordinates ];
-
-		} else if ( geometry.type === "LineString" ) {
-
-			return [ geometry.coordinates ];
-
-		}
-
-	} );
-	console.log( "points", points );
-
-	//const vertices = points.map( pairs => pairs.map( pair => GJS.latLonToXYZ( 50, pair[ 1 ], pair[ 0 ] ) ) );
+	const vertices = points.map( pairs => pairs.map( pair => new THREE.Vector3( pair[ 0 ] + 122.44, pair[ 1 ] - 37.77, 0 ) ) );
 	//console.log( "vertices", vertices );
 
-
-	const vertices = points.map( pairs => pairs.map( pair => new THREE.Vector3( pair[ 0 ], pair[ 1 ], 0 )  ) );
-
 	const line = GJS.addLineSegments( vertices );
+
+	//console.log( "line", line );
 
 	GJS.groupGeoJson.add( line );
 
+
+	vertices.forEach( ( pairs, index ) => {
+
+		geo = new THREE.Geometry()
+
+		geo.vertices = pairs;
+
+		geo.computeBoundingSphere();
+
+		console.log( "", tracts[ index ].properties );
+
+		rate = + tracts[ index ].properties.rate;
+
+		const geometry = new THREE.BoxGeometry( 0.001, 0.001, 0.00004 * rate );
+		const material = new THREE.MeshNormalMaterial();
+		const mesh = new THREE.Mesh( geometry, material );
+		mesh.position.copy( geo.boundingSphere.center )
+		mesh.position.z += 0.00002 * rate
+		scene.add( mesh );
+
+
+
+	} );
+
+
 };
+
+
 
 GJS.addLineSegments = function ( segments ) {
 
@@ -150,7 +151,7 @@ GJS.addLineSegments = function ( segments ) {
 
 
 
-GJS.latLonToXYZ = function( radius = 50, lat = 0, lon = 0 ) {
+GJS.latLonToXYZ = function ( radius = 50, lat = 0, lon = 0 ) {
 
 	const phi = ( ( 90 - lat ) * Math.PI ) / 180;
 	const theta = ( ( 180 - lon ) * Math.PI ) / 180;
@@ -162,13 +163,13 @@ GJS.latLonToXYZ = function( radius = 50, lat = 0, lon = 0 ) {
 
 	return new THREE.Vector3( - x, y, z );
 
-}
+};
 
 
 // https://threejs.org/docs/#api/en/loaders/FileLoader
 // set response type to JSON
 
-GJS.requestFile = function( url, callback ) {
+GJS.requestFile = function ( url, callback ) {
 
 	const xhr = new XMLHttpRequest();
 	xhr.open( "GET", url, true );
@@ -178,5 +179,5 @@ GJS.requestFile = function( url, callback ) {
 	xhr.onload = ( xhr ) => callback( xhr.target.response );
 	xhr.send( null );
 
-}
+};
 
