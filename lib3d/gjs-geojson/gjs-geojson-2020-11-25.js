@@ -18,8 +18,7 @@ GJS.initGeoJson = function () {
 
 	const pathGeoJson = "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/";
 
-	const urlGeoJson = "https://data.sfgov.org/resource/tpyr-dvnc.json";
-	//const urlGeoJson = "./gz_2010_us_050_00_20m.json";
+	const urlGeoJson = "../../assets/naturalearth/gz_2010_us_050_00_20m.json";
 
 	//const urlGeoJson = "../../opendata/us-county-boundaries-ca.geojson";
 	//const urlGeoJson = "./json/ca-cbsa.json";
@@ -41,7 +40,6 @@ GJS.initGeoJson = function () {
 
 GJS.onLoadGeoJson = function ( string ) {
 
-	console.log( "string", string );
 	const json = string
 
 	let geometries = json.features.map( feature => feature.geometry );
