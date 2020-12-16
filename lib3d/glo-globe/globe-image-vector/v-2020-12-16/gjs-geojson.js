@@ -26,6 +26,8 @@ GJS.initGeoJson = function () {
 
 	scene.add( GJS.groupGeoJson );
 
+	if ( !GLO.globe ) { GLO.initGlobeWithBitmap(); }
+
 	//console.log( "msGeoJ", performance.now() - timeStart );
 
 };
