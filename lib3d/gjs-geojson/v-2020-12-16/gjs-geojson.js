@@ -22,7 +22,7 @@ GJS.initGeoJson = function () {
 
 	const urlGeoJson = "../cb_2019_us_county_20m.geojson";
 
-	GJS.requestFile( urlGeoJson, GJS.onLoadGeoJson );
+	//GJS.requestFile( urlGeoJson, GJS.onLoadGeoJson );
 
 	scene.add( GJS.groupGeoJson );
 
@@ -83,10 +83,19 @@ GJS.onLoadGeoJson = function ( string ) {
 
 			polygon = geometry.coordinates[ 0 ];
 
-			vertices = polygon.map( pair => GJS.latLonToXYZ( 50, pair[ 1 ], pair[ 0 ] ) )
+			vertices = polygon.map( pair => GJS.latLonToXYZ( 50, pair[ 1 ], pair[ 0 ] ) );
 
 			points.push( vertices );
 
+		} else if ( geometry?.type === "LineString" ) {
+
+			//console.log( "lines", geometry );
+
+			polygon = geometry.coordinates;
+
+			vertices = polygon.map( pair => GJS.latLonToXYZ( 50, pair[ 1 ], pair[ 0 ] ) );
+
+			points.push( vertices );
 
 		} else if ( geometry?.type === "MultiPolygon" ) {
 
@@ -158,7 +167,7 @@ GJS.latLonToXYZ = function( radius = 50, lat = 0, lon = 0 ) {
 // https://threejs.org/docs/#api/en/loaders/FileLoader
 // set response type to JSON
 
-GJS.requestFile = function( url, callback ) {
+GJS.requestFile = function ( url, callback = GJS.onLoadGeoJson ) {
 
 	const xhr = new XMLHttpRequest();
 	xhr.open( "GET", url, true );
