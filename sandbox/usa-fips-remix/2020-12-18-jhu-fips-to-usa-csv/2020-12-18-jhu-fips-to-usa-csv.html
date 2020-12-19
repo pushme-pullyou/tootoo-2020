@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang=en>
+
+<head>
+	<title></title>
+	<meta charset=utf-8 />
+	<style>
+		body {
+			font: bold 12pt monospace;
+		}
+	</style>
+</head>
+
+<body>
+
+	<a href="">JHU FIPS to USA CSV</a>
+
+	<button onclick=requestFile("https://cdn.jsdelivr.net/gh/CSSEGISandData/COVID-19@master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv") >
+		load jhu table csv</button>
+
+	<button onclick=filterUSCounties() >filterUSCounties</button>
+
+	<button onclick=remix() >remix</button>
+
+	<button onclick="saveFile()" >save file</button>
+
+	<div id=divContent ></div>
+
+	<script>
+
+		init();
+
+		function init() {
+
+			url = "https://cdn.jsdelivr.net/gh/CSSEGISandData/COVID-19@master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv"
+
+			requestFile( url);
+
+		}
+
+		function requestFile( url = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2020@master/README.md", callback = onLoad ) {
+
+			// urlDefaultFile = "https://cdn.jsdelivr.net/gh/pushme-pullyou/tootoo-2020@master/README.md";
+			const urlCORS = "https://cors-anywhere.herokuapp.com/";
+
+			xhr = new XMLHttpRequest();
+			xhr.open( "GET", url, true );
+			xhr.responseType = "text";
+			xhr.onerror = ( xhr ) => console.log( "error:", xhr );
+			//xhr.onprogress = ( xhr ) => console.log( "bytes loaded:", xhr.loaded );
+			xhr.onload = ( xhr ) => callback( xhr.target.response );
+			xhr.send( null );
+
+		}
+
+
+
+		function onLoad( response ) {
+
+			linesAll = response.split( /\n/ ).map( line => line.split( "," ) );
+
+			divContent.innerText = linesAll.join( "\n");
+
+		}
+
+		function filterUSCounties() {
+
+			//linesCounties = linesAll.filter( line => line[ 0 ].startsWith( "840" ));
+			linesCounties = linesAll.filter( line => line[ 0 ].startsWith( "840" ) && line[ 4 ] && line[ 5 ] && line[ 8 ]);
+
+			divContent.innerText = linesCounties.join( "\n" );
+
+		}
+
+		function remix() {
+
+			remix = linesCounties.map( line => [ line[ 4 ], line[ 5 ], abbreviations[ line[ 6 ] ], line[ 8 ], line[ 9 ], line[ 13 ] ] );
+
+			line0 = "fip,county,state,latitude,longitude,population\n";
+			
+			divContent.innerText = line0 + remix.join( "\n" );
+
+		}
+
+
+		function saveFile() {
+
+			const blob = new Blob( [ divContent.innerText] );
+			let a = document.body.appendChild( document.createElement( 'a' ) );
+			a.href = window.URL.createObjectURL( blob );
+			a.download = "usa-counties-fips-latlon-pop.csv";
+			a.click();
+			a = null;
+
+		}
+
+		abbreviations = {
+				"Alabama": "AL",
+				"Alaska": "AK",
+				"Arizona": "AZ",
+				"Arkansas": "AR",
+				"California": "CA",
+				"Colorado": "CO",
+				"Connecticut": "CT",
+				"Delaware": "DE",
+				"District Of Columbia": "DC",
+				"Florida": "FL",
+				"Georgia": "GA",
+				"Hawaii": "HI",
+				"Idaho": "ID",
+				"Illinois": "IL",
+				"Indiana": "IN",
+				"Iowa": "IA",
+				"Kansas": "KS",
+				"Kentucky": "KY",
+				"Louisiana": "LA",
+				"Maine": "ME",
+				"Maryland": "MD",
+				"Massachusetts": "MA",
+				"Michigan": "MI",
+				"Minnesota": "MN",
+				"Mississippi": "MS",
+				"Missouri": "MO",
+				"Montana": "MT",
+				"Nebraska": "NE",
+				"Nevada": "NV",
+				"New Hampshire": "NH",
+				"New Jersey": "NJ",
+				"New Mexico": "NM",
+				"New York": "NY",
+				"North Carolina": "NC",
+				"North Dakota": "ND",
+				"Ohio": "OH",
+				"Oklahoma": "OK",
+				"Oregon": "OR",
+				"Pennsylvania": "PA",
+				"Rhode Island": "RI",
+				"South Carolina": "SC",
+				"South Dakota": "SD",
+				"Tennessee": "TN",
+				"Texas": "TX",
+				"Utah": "UT",
+				"Vermont": "VT",
+				"Virginia": "VA",
+				"Washington": "WA",
+				"West Virginia": "WV",
+				"Wisconsin": "WI",
+				"Wyoming": "WY"
+			}
+
+	</script>
+
+
+</body>
+
+</html>
