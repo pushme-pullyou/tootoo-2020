@@ -19,13 +19,7 @@ function init () {
 
 	aMenuFooter.innerHTML = icon;
 
-	if ( window.innerWidth < 640 || window.innerHeight < 500 ) {
 
-	} else {
-
-		detNavMenu.open = true;
-
-	}
 
 
 	THR.init();
