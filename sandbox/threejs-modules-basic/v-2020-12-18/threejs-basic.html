@@ -33,7 +33,7 @@
 	<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r123/build/three.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r123/examples/js/controls/OrbitControls.js"></script>
 
-	<script src="https://pushme-pullyou.github.io/tootoo-2020/lib3d/thr-three/thr-threejs-2020-08-02.js"></script>
+	<script src="https://pushme-pullyou.github.io/tootoo-2020/lib3d/thr-three/thr-threejs-2020-12-11.js"></script>
 	<script
 		src="https://pushme-pullyou.github.io/tootoo-2020/lib3d/thrc-three-set-colors/thrc-three-set-colors-2020-07-11.js"></script>
 	<script
@@ -43,20 +43,50 @@
 
 	<script>
 
-		THR.init();
-		THR.animate();
+		init();
 
-		THR.addLights();
-		THR.addGround();
+		function init() {
 
-		THR.group = THR.setSceneNew();
+			aTitle.innerHTML = document.title = location.href.split( "/" ).pop();
 
-		THRU.addMeshes( 100 );
+			THR.init();
+			THR.animate();
 
-		THRR.updateScene();
+			THR.addLights();
+			THR.addGround();
+
+			THR.group = THR.setSceneNew();
+
+			THRU.addMeshes( 100 );
+
+			THRR.updateScene();
+
+		}
 
 
+		function requestFile( url = "https://example.com", callback = onLoad ) {
+
+			const urlCORS = "https://cors-anywhere.herokuapp.com/";
+
+			xhr = new XMLHttpRequest();
+			xhr.open( "GET", url, true );
+			xhr.responseType = "text";
+			xhr.onerror = ( xhr ) => console.log( "error:", xhr );
+			//xhr.onprogress = ( xhr ) => console.log( "bytes loaded:", xhr.loaded );
+			xhr.onload = ( xhr ) => callback( xhr.target.response );
+			xhr.send( null );
+
+		}
+
+
+
+		function onLoad( response ) {
+
+			console.log( "response", response );
+
+		}
 	</script>
+
 </body>
 
 </html>
