@@ -44,31 +44,33 @@ GLO.setGlobeElevation3D = function ( value = 50 ) {
 
 	//if ( GLO.globe.name === "globeFlat" ) {
 
-		scene.remove( GLO.globe );
+	scene.remove( GLO.globe );
 
-		const geometry = new THREE.SphereBufferGeometry( GLO.size, 2048, 1024 );
-		geometry.applyMatrix4( new THREE.Matrix4().makeRotationX( 0.5 * Math.PI ) );
+	const geometry = new THREE.SphereBufferGeometry( GLO.size, 2048, 1024 );
+	geometry.applyMatrix4( new THREE.Matrix4().makeRotationX( 0.5 * Math.PI ) );
 
-		const loader = new THREE.TextureLoader();
-		const texture = loader.load( GLO.url );
-		const heightmap = loader.load( GLO.urlHeightmap, );
-		const material = new THREE.MeshPhongMaterial( {
-			map: texture,
-			displacementMap: heightmap,
-			displacementScale: scale
-		} );
+	const loader = new THREE.TextureLoader();
+	const texture = loader.load( GLO.url );
+	const heightmap = loader.load( GLO.urlHeightmap, );
+	const material = new THREE.MeshPhongMaterial( {
+		map: texture,
+		displacementMap: heightmap,
+		displacementScale: scale
+	} );
 
-		GLO.globe = new THREE.Mesh( geometry, material );
-		GLO.globe.matrixAutoUpdate = false;
-		GLO.globe.name = "globe3d";
+	GLO.globe = new THREE.Mesh( geometry, material );
+	GLO.globe.matrixAutoUpdate = false;
+	GLO.globe.name = "globe3d";
 
 
-		geometrySea = new THREE.SphereBufferGeometry( GLO.size + 5.5, 25, 25);
-		materialSea = new THREE.MeshNormalMaterial( { opacity: 0.7, transparent: true } )
-		globeSea = new THREE.Mesh( geometrySea, materialSea );
-		GLO.globe.add( globeSea );
+	geometrySea = new THREE.SphereBufferGeometry( GLO.size + 5.5, 25, 25 );
+	materialSea = new THREE.MeshNormalMaterial( { opacity: 0.7, transparent: true } );
+	globeSea = new THREE.Mesh( geometrySea, materialSea );
+	GLO.globe.add( globeSea );
 
-		scene.add( GLO.globe );
+	scene.add( GLO.globe );
+
+
 
 	// } else {
 

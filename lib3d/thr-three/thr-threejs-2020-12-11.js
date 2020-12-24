@@ -98,6 +98,7 @@ THR.setSceneNew = function ( group ) {
 
 };
 
+
 THR.updateScene = function ( group = THR.group ) {
 	//console.log( "group", THR.group  );
 
@@ -302,7 +303,7 @@ THR.setStats = function () {
 
 	const render = renderer.info.render;
 
-	detFile.open = true;
+	//detFile.open = true;
 	if ( !window.divLog ) {
 		divLog = detFile.body.appendChild( document.createElement( "div" ) );
 	}
