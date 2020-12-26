@@ -5,10 +5,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0" />
 	<meta name="description"
-		content="TooToo 2020 uses the GitHub API to provide access to all the current files hosted with GitHub Pages.">
+		content="Web site designed and built by Theo Armour, resident at the Heritage">
 	<meta name="keywords" content="JavaScript,Markdown,GitHub,FOSS">
 	<meta name="date" content="2020-12-25">
-	<title></title>
+	<title>Heretics</title>
 
 	<!-- Copyright 2020 Theo Armour. MIT license -->
 	<link rel="stylesheet" href="./lib/style/style-2020-12-24.css">
@@ -16,7 +16,7 @@
 	<style>
 		:root {
 			/* --mnu-width: 15rem; */
-			--main-hue: 0;
+			--main-hue: 240;
 			/* 0 to 360 0=red 120=green 240=blue */
 		}
 
@@ -48,29 +48,6 @@
 
 			<div id=MNUdivHeader></div>
 
-			<div id=divNavLog></div>
-
-			<details id=detFile>
-
-				<summary class="summary-primary gmd-1" title="Open files on your device: ">file menu</summary>
-
-				<div id=FRdivMenuFileReader></div>
-
-				<p>
-					<input type=file id=FRinpFile onchange=FR.readFile(this); accept="*">
-				</p>
-
-				<div id=FOOdivLog>to be reset</div>
-
-				<div id=FOZdivFileOpenZip></div>
-
-				<div id=divLog></div>
-
-			</details>
-
-
-			<div id=GFFdivDetails></div>
-
 			<div id=GRVdivDetails></div>
 
 
@@ -100,7 +77,7 @@
 		// divDescription.innerHTML = document.head.querySelector( "[ name=description ]" ).content +
 		// 	"<br><br>Update: " + document.head.querySelector( "[ name=version ]" ).content
 
-		const source = "https://github.com/pushme-pullyou/tootoo-2020/";
+		const source = "https://github.com/heretics-sf/tootoo-2020/";
 
 		const version = document.head.querySelector( "[ name=date ]" ).content;
 
@@ -116,7 +93,7 @@
 
 			aGithub.href = source;
 
-			spnTitle.innerHTML = "TooToo";
+			//spnTitle.innerHTML = "Heretics";
 
 			spnVersion.innerHTML = version;
 
@@ -130,29 +107,28 @@
 				window.history.pushState( "", "", "./" + location.hash );
 
 				GRV.urlViewer = "";
-				//GRV.ignoreFolders = [ "archive", "drafts", "images", "js", "lib", "src", "templates" ];
-				//GRV.ignoreFolders = [ "archive", "drafts", "images", lib", "lib3d", "lib-template-viewer",
-				//"lib3d-template-viewer", "plugins","src", "templates" ];
-
+				GRV.ignoreFolders = [ "archive", "drafts", "images", "js", "lib", "src", "templates" ];
 
 			} else {
 
 				if ( location.href.includes( "pushme" ) ) {
 
-					GRV.urlViewer = ""; // "https://pushme-pullyou.github.io/";
+					GRV.urlViewer = "https://heretics-sf.github.io/";
 
 				} else {
 
 					GRV.urlViewer = "";
 
 				}
-				GRV.ignoreFolders = [];
+				//GRV.ignoreFolders = [];
+				GRV.ignoreFolders = [ "archive", "drafts", "images", "lib" ];
 
 			}
 
-			GRV.user = "pushme-pullyou";
-			GRV.repo = "tootoo-2020";
-			//GRV.getFiles = GRV.getFilesSimple;
+			GRV.user = "heretics-sf";
+			GRV.repo = "heretics-sf.github.io";
+
+			GRV.getFiles = GRV.getFilesSimple;
 
 			GRV.init();
 
@@ -161,48 +137,6 @@
 			FOO.onHashChange();
 
 		}
-
-
-
-		// function onHashChange() {
-
-		// 	const fileName = location.hash ? location.hash.slice( 1 ) : GRV.defaultFile;
-		// 	const title = fileName.split( "/" ).pop();
-		// 	const extension = title.toLowerCase().split( '.' ).pop();
-		// 	const url = GRV.urlViewer + fileName
-
-		// 	document.title = title;
-
-		// 	if ( extension === "md" ) {
-
-		// 		showdown.setFlavor( "github" );
-
-		// 		const options = { excludeTrailingPunctuationFromURLs: true, ghMention: true, parseImgDimensions: true, simplifiedAutoLink: true, simpleLineBreaks: true, emoji: true, openLinksInNewWindow: true };
-
-		// 		const xhr = new XMLHttpRequest();
-		// 		xhr.open( "get", url, true );
-		// 		xhr.onload = () => {
-		// 			const txt = xhr.responseText.replace( /\<!--@@@/, "" ).replace( /\@@@-->/, "" );
-		// 			divContentMain.innerHTML = new showdown.Converter( options ).makeHtml( txt );
-		// 			window.scrollTo( 0, 0 );
-		// 		};
-		// 		xhr.send( null );
-
-		// 		return;
-
-		// 	}
-
-		// 	if ( [ "gif", "jpg", "png", "svg" ].includes( extension ) ) {
-
-		// 		divContentMain.innerHTML = `<a href=${ url } title="Open this image in a new window" target="_blank" ><img src="${ url }" style=max-width:100% ></a>`;
-
-		// 		return;
-
-		// 	}
-
-		// 	divContentMain.innerHTML = `<iframe src="${ url }" height=${ window.innerHeight } width=100% ></iframe>`;
-
-		// }
 
 	</script>
 </body>
