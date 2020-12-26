@@ -13,8 +13,6 @@
 	<!-- Copyright 2020 Theo Armour. MIT license -->
 	<link rel="stylesheet" href="./lib/style/style-2020-12-24.css">
 
-
-
 	<style>
 		:root {
 			/* --mnu-width: 15rem; */
@@ -37,7 +35,7 @@
 
 	<script src="./lib/grv-github-repo-tree-view/grv-github-repo-tree-view-2020-12-25.js"></script>
 
-	<script src="./lib/fo-file-open/foo-file-open-object-2020-07-17.js"></script>
+	<script src="./lib/fo-file-open/foo-file-open-object-2020-12-25.js"></script>
 	<script src="./lib/fo-file-open/foz-file-open-zip-2020-07-07.js"></script>
 	<script src="./lib/fo-file-open/fr-file-reader-2020-07-06.js"></script>
 
@@ -153,14 +151,15 @@
 
 			GRV.init();
 
-			const defaultFile = "README.md";
-
 			//if ( !location.hash ) { location.hash = defaultFile; }
 
-			window.addEventListener( "hashchange", onHashChange, false );
+			//window.addEventListener( "hashchange", onHashChange, false );
 
-			onHashChange();
+			//onHashChange();
 
+			FOO.init();
+
+			FOO.onHashChange();
 		}
 
 
